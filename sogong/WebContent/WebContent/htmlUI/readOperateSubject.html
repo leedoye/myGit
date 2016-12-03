@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <script type="text/javascript">
+<!--
+
+	function draw_table(num)
+	{
+		for (var f=1; f <5; f++){
+			//조회 받은 코드값 수로 지정
+			document.write('<tr>');
+			document.write('<td width="80px">질문 코드</td><td width="90px">평가 대상 구분</td><td width="100px">유효기간 시작일</td><td width="100px">유효기간 종료일</td><td>질문 정보</td><td width="80px">답안 정보</td>');
+			document.write ('</td>');
+			document.write ('</tr>');}		
+	}
+	
+	function button1_click() 
+	{
+		var inputInfo = inputToreadOperateSubject();
+		if(inputInfo[0] != "실패") {
+			alert("운영과목 정보가 성공적으로 입력.");
+			
+			document.auth_form.method="post";
+			document.auth_form.action="authCheck.jsp";
+			document.auth_form.target = 'authCeckFrame';
+			document.auth_form.submit();
+			
+			document.input_form.method="post";
+			document.input_form.action="readOperateSubject.jsp";
+			document.input_form.target = 'readOperateSubjectFrame';
+			document.input_form.submit();
+		
+		}
+		else{
+			alert("운영과목 조회에 실패했습니다. 과목 코드를 비워두면 안됩니다.");
+		}
+	}
+	
+	function inputToreadOperateSubject() {
+		var subjectCode = document.forms['input_form']['subjectCode'].value;
+		var inputInfo = new Array(2);
+		alert("과목코드 : " + subjectCode)
+		if (subjectCode != "") {
+			inputInfo[0] = 0;
+			inputInfo[1] = subjectCode;
+		}
+		else {
+			inputInfo[0] = "실패";
+		}
+		return inputInfo;
+	}
+	
+
+//-->
+</script>
+</head>
+<body>
+<h6> 교육센터통합운영관리 - 과목관리 - 운영과목관리 - 운영과목조회</h6>
+-조회 조건-
+<p>
+<div id="form">
+<form name="input_form" class="input_form">
+<table>
+<tr>
+<td align="right">년도</td>
+<td><input type="text" id="year"></td>
+<td align="right">과정</td>
+<td><input type="text" id="subjectProcess"></td>
+</tr>
+
+<tr>
+<td align="right">과정코드</td>
+<td><input type="text" id="subjectCode"></td>
+<td align="right">과목코드</td>
+<td><input type="text" id="subjectName"></td>
+</tr>
+</table>
+ 
+<input type="submit" value="조회">
+<input type="submit" value="수정"><p></p>
+<iframe name="readOperateSubjectFrame"src="readOperateSubject.jsp" height="500" width="800"></iframe>
+
+</form>
+</div>
+</body>
+</html>
